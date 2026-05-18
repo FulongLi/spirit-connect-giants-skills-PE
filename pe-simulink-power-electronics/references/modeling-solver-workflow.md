@@ -1,28 +1,28 @@
-# Simulink/Simscape 建模与求解器工作流
+# Simulink/Simscape Modeling And Solver Workflow
 
-## 模型层级选择
+## Choose The Model Level
 
-- 开关模型用于检查 PWM、采样、器件应力、纹波、限流和非线性状态机。
-- 平均模型用于环路设计、工况扫参、控制参数迭代和系统级稳定性预判。
-- 系统级模型可以先用平均功率级，再对关键工况替换成开关模型复核。
-- 不要用一个模型回答所有问题；每次仿真先写清楚模型回答的工程问题。
+- Use switching models for PWM behavior, sampling, device stress, ripple, current limit, and nonlinear state machines.
+- Use averaged models for loop design, operating-point sweeps, control-parameter iteration, and system-level stability screening.
+- For system-level studies, start with averaged power stages and replace critical operating points with switching models for confirmation.
+- Do not expect one model to answer every question. State the engineering question before choosing the model level.
 
-## Simscape Electrical 建模
+## Simscape Electrical Modeling
 
-- 统一单位和参数来源，避免同一模型里混用标称值、容差值和测试值。
-- 电容 ESR、寄生电感、电感 DCR、开关死区和采样延迟应按目标问题选择是否加入。
-- 对强开关模型，先用理想器件跑通工况，再逐步加入真实器件和寄生。
-- 对控制调试，确保测量点与真实采样点一致，不要只看理想节点电压。
+- Keep units and parameter sources consistent. Avoid mixing nominal values, tolerance values, and measured values without labels.
+- Add capacitor ESR, parasitic inductance, inductor DCR, dead time, and sampling delay only when they are relevant to the target question.
+- For aggressive switching models, start with ideal devices, then add real devices and parasitics gradually.
+- For control debugging, make sure measurement points match the real sampling points rather than ideal internal nodes only.
 
-## Solver 和步长
+## Solver And Step Size
 
-- 开关模型通常需要离散或局部求解设置匹配 PWM 频率；最大步长要能解析开关边沿和采样时刻。
-- 平均模型可用更大步长，但不能掩盖控制器离散延迟和限幅。
-- 如果仿真对最大步长高度敏感，先怀疑模型数值可信度，再解释控制结论。
-- 遇到收敛问题，先检查理想源、纯 LC、悬空节点、代数环和过硬的非线性开关。
+- Switching models usually need discrete or local solver settings aligned with PWM frequency. Maximum step size must resolve switching edges and sample instants.
+- Averaged models can use larger steps, but should not hide discrete controller delay or saturation.
+- If a conclusion is highly sensitive to maximum step size, treat it as a model credibility issue before explaining the control behavior.
+- For convergence issues, inspect ideal sources, pure LC networks, floating nodes, algebraic loops, and overly stiff nonlinear switches.
 
-## 初始化
+## Initialization
 
-- 明确使用稳态初始化、从零启动还是指定初始条件。
-- 负载阶跃和输入扰动测试应在稳态后开始，避免把启动过程误判为动态响应。
-- 控制器积分状态、软启动状态和保护状态机必须与目标实验一致。
+- Document whether the model uses steady-state initialization, startup from zero, or specified initial conditions.
+- Load-step and input-perturbation tests should start after steady state unless startup behavior is the subject.
+- Controller integrator state, soft-start state, and protection state machine must match the target experiment.

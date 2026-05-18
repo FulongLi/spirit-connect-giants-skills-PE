@@ -3,40 +3,42 @@ name: pe-ltspice-power-electronics
 description: Use this skill for LTspice power electronics simulation workflows, including switching converter transient analysis, averaged models, loop-gain injection, compensation validation, convergence debugging, device model sanity checks, and waveform-based diagnosis.
 ---
 
-# LTspice 电力电子仿真
+# LTspice Power Electronics Simulation
 
-## 使用目标
+## Goal
 
-面向电力电子研发工程师，用于搭建、检查和调试 LTspice 中的电源与功率变换器仿真。重点是让仿真结果可信、可复现，并能支持工程判断。
+Use this skill to build, inspect, and debug LTspice simulations for power supplies and power converters. The priority is to make simulation results credible, reproducible, and useful for engineering decisions.
 
-## 先判断任务类型
+## Classify The Task First
 
-- 瞬态开关仿真：检查启动、负载阶跃、开关节点、电感电流、限流和器件应力。
-- 平均模型/小信号：检查环路增益、补偿网络、交越频率和相位裕度。
-- 收敛问题：检查理想器件、寄生、初始条件、求解器和模型物理性。
-- 器件模型问题：检查 MOSFET/二极管/运放/比较器模型是否适合当前目标。
-- 波形诊断：根据异常频率、节点和工况判断控制、功率级或数值问题。
+- Switching transient simulation: startup, load step, switching node, inductor current, current limit, and device stress.
+- Averaged model or small-signal analysis: loop gain, compensation network, crossover frequency, and phase margin.
+- Convergence issue: ideal components, parasitics, initial conditions, solver behavior, and model physicality.
+- Device model issue: MOSFET, diode, op amp, comparator, or controller macro-model suitability.
+- Waveform diagnosis: infer whether an abnormal frequency, node, or operating point indicates a control, power-stage, or numerical issue.
 
-## 信息不足时追问
+## Ask For Missing Inputs
 
-- 拓扑、控制方式、开关频率、输入/输出和负载范围。
-- 使用开关模型还是平均模型，目标是瞬态、AC 还是环路测量。
-- 异常波形、仿真命令、最大步长、初始条件和报错信息。
-- 关键模型来源：控制芯片宏模型、MOSFET/二极管模型、运放或比较器模型。
+Ask only for inputs that materially change the diagnosis:
 
-## 参考资料
+- Topology, control method, switching frequency, input/output range, and load range.
+- Whether the model is a switching model or averaged model, and whether the target is transient, AC, or loop measurement.
+- Abnormal waveform, simulation directive, maximum time step, initial conditions, and error message.
+- Critical model source: controller macro-model, MOSFET/diode model, op amp, or comparator model.
 
-按需读取：
+## References
 
-- 瞬态与波形诊断：`references/transient-waveform-workflow.md`
-- 环路注入与补偿验证：`references/loop-gain-workflow.md`
-- 收敛和模型可信度：`references/convergence-model-checklist.md`
+Load only what is needed:
 
-## 标准输出结构
+- Transient and waveform diagnosis: `references/transient-waveform-workflow.md`
+- Loop-gain injection and compensation validation: `references/loop-gain-workflow.md`
+- Convergence and model credibility: `references/convergence-model-checklist.md`
 
-1. 目标和症状：说明用户要验证的工况、异常和已有证据。
-2. 可信度判断：指出仿真结论当前是否可相信，缺哪些检查。
-3. LTspice 操作建议：给出仿真命令、探针、对比实验或模型简化步骤。
-4. 关键波形：列出必须同时观察的节点和控制量。
-5. 根因假设排序：按控制环路、功率级、器件模型、数值设置分类。
-6. 下一步实验：给出最快能排除一个假设的动作。
+## Default Answer Structure
+
+1. Target and symptom: state the operating condition, abnormal behavior, and available evidence.
+2. Credibility check: say whether the current simulation result is trustworthy and what checks are missing.
+3. LTspice actions: provide directives, probes, comparison experiments, or model simplification steps.
+4. Key waveforms: list the nodes and control signals that must be inspected together.
+5. Ranked root-cause hypotheses: classify them as control-loop, power-stage, device-model, or numerical setup issues.
+6. Next experiment: give the fastest action that can eliminate one hypothesis.

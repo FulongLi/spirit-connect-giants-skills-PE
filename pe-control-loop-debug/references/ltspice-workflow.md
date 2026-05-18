@@ -1,36 +1,36 @@
-# LTspice 控制环路仿真工作流
+# LTspice Control-Loop Simulation Workflow
 
-## 瞬态仿真可信度
+## Transient Credibility
 
-- 先确认电路能在目标工况进入稳态，再讨论环路响应。
-- 观察误差信号、补偿节点、PWM 比较信号、开关节点、电感电流、输出电压和负载电流。
-- 若结果对最大步长高度敏感，先降低最大步长并检查开关沿、二极管反向恢复、寄生电感和理想源。
-- 对启动异常，区分软启动参数、初始条件、积分饱和和数值收敛问题。
+- Confirm the circuit reaches the intended operating condition before drawing conclusions about loop response.
+- Observe the error signal, compensation node, PWM comparator signal, switching node, inductor current, output voltage, and load current.
+- If results are highly sensitive to maximum time step, reduce the maximum step and inspect switching edges, diode reverse recovery, parasitic inductance, and ideal sources.
+- For startup issues, separate soft-start parameters, initial conditions, integrator windup, and numerical convergence problems.
 
-## 环路注入与 AC 分析
+## Loop Injection And AC Analysis
 
-- 若使用平均模型，确认功率级传递函数、工作点、占空比约束和调制增益是当前工况。
-- 若在开关模型上做环路测量，优先使用稳定工作点、小信号注入和足够长的周期平均。
-- 注入源位置要避免破坏 DC 偏置；测量返回比时确认正负方向，否则相位裕度会被误读。
-- AC 分析只对线性化模型可靠；含比较器、限幅、开关行为的模型通常需要平均化或专门的 sampled-data 方法。
+- If using an averaged model, confirm the power-stage transfer function, operating point, duty constraint, and modulator gain.
+- If measuring loop behavior on a switching model, use a stable operating point, small-signal injection, and enough cycle averaging.
+- Choose an injection point that preserves DC bias. Confirm return-ratio polarity, otherwise phase margin can be misread.
+- AC analysis is reliable only for a linearized model. Models containing comparators, limiters, and switching behavior usually need averaging or a dedicated sampled-data method.
 
-## 收敛和数值问题
+## Convergence And Numerical Issues
 
-- 收敛失败时，优先检查理想电压源并联电容、理想电流源串联电感、悬空节点、过硬的开关模型。
-- 给关键寄生加入合理 ESR/DCR，避免纯理想 LC 和无限陡峭开关边沿。
-- 不要把 `.options` 当成根因修复；先改善模型物理性，再调整容差或积分方法。
-- 若波形出现非物理尖峰，检查探针参考点、地线、电感串联电阻、二极管模型和 MOSFET 寄生。
+- For convergence failures, first inspect ideal voltage sources in parallel with capacitors, ideal current sources in series with inductors, floating nodes, and overly stiff switching models.
+- Add reasonable ESR/DCR to key components to avoid ideal LC tanks and infinitely sharp switching edges.
+- Do not treat `.options` as root-cause repair. Improve model physicality first, then tune tolerances or integration method if needed.
+- If non-physical spikes appear, inspect probe reference, grounding, inductor series resistance, diode model, and MOSFET parasitics.
 
-## 对比实验
+## Comparison Experiments
 
-- 固定控制量：把占空比或频率固定，确认功率级本身是否在该工况可稳定工作。
-- 简化控制器：先保留比例或低阶补偿，确认是否由高阶补偿网络引入异常。
-- 替换模型：用理想器件和真实器件分别跑同一工况，判断异常来自控制、寄生还是器件模型。
-- 扫负载和输入：记录振荡开始的临界负载、Vin 和占空比范围。
+- Fixed command: force duty ratio or frequency and confirm the power stage can operate at the target condition.
+- Simplified controller: keep only proportional or low-order compensation to see whether higher-order compensation causes the issue.
+- Model swap: run the same condition with ideal and realistic devices to separate control, parasitic, and device-model effects.
+- Vin/load sweep: record the critical load, Vin, and duty range where oscillation begins.
 
-## 常见 LTspice 陷阱
+## Common LTspice Pitfalls
 
-- 把开关模型直接用于小信号 AC，容易得到看似精确但不可信的环路曲线。
-- 没有等待稳态就测量瞬态指标，会把启动过程误判为负载阶跃响应。
-- `startup`、初始条件和电容预充会显著改变控制器状态，复现实验时必须记录。
-- 过理想的比较器和运放模型会隐藏延迟、压摆率、输出限幅和共模范围问题。
+- Running small-signal AC directly on a switching model can produce precise-looking but unreliable loop curves.
+- Measuring transient metrics before steady state can confuse startup with load-step response.
+- `startup`, initial conditions, and capacitor precharge strongly affect controller state and must be recorded.
+- Idealized op amp and comparator models can hide delay, slew rate, output saturation, and common-mode limitations.

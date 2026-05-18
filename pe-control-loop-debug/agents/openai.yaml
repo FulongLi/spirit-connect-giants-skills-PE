@@ -1,6 +1,6 @@
 interface:
   display_name: "PE Control Loop Debug"
-  short_description: "面向电力电子研发的控制环路仿真与调试工作流，支持 PLECS 与 LTspice"
+  short_description: "Power electronics control-loop simulation and debugging workflow"
   default_prompt: "Use $pe-control-loop-debug to diagnose a power electronics control-loop simulation or waveform issue."
 
 policy:

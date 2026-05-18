@@ -1,38 +1,38 @@
-# PLECS 控制环路仿真工作流
+# PLECS Control-Loop Simulation Workflow
 
-## 建模可信度检查
+## Model Credibility Checks
 
-- 明确模型层级：先区分平均模型、开关模型和热/损耗模型，不要直接把一个模型的结论套到另一个模型。
-- 控制器限幅必须显式建模：误差放大器输出、占空比、峰值电流参考、软启动、限流和 anti-windup 都会改变瞬态。
-- 功率级参数要覆盖最差工况：输入电压上下限、负载上下限、L/C/ESR 容差、采样延迟、PWM 更新方式。
-- 对 LLC、谐振或多模式拓扑，先确认工作点是否进入预期区域，再看环路结论。
+- Identify the model level first: averaged model, switching model, or thermal/loss model. Do not transfer conclusions blindly between model levels.
+- Model control saturation explicitly: error-amplifier output, duty command, peak-current reference, soft-start, current limit, and anti-windup can all reshape the transient response.
+- Cover worst-case power-stage parameters: input voltage range, load range, L/C/ESR tolerance, sampling delay, and PWM update behavior.
+- For LLC, resonant, or multi-mode topologies, confirm the operating region before drawing loop conclusions.
 
-## Bode 和环路注入
+## Bode And Loop Injection
 
-- 在稳态工作点注入小扰动，扰动幅值应足够小，避免触发限幅、模式切换或非线性保护。
-- 注入点优先放在环路增益定义清楚的位置，并确认返回比测量方向一致。
-- 每次 Bode 结果都记录工况：Vin、Vout、负载、开关频率、工作模式、模型类型。
-- 检查交越频率附近的曲线是否平滑；若出现离散尖峰，先怀疑模型非线性、扰动过大或仿真步长设置。
-- 对数字控制，必须把采样、计算延迟、PWM 零阶保持和滤波器纳入环路。
+- Inject a small perturbation at the steady operating point. Keep the amplitude small enough to avoid saturation, mode changes, or protection events.
+- Place the injection source where loop gain is well defined, and confirm the return-ratio direction.
+- Record the operating condition for every Bode result: Vin, Vout, load, switching frequency, operating mode, and model type.
+- If the curve is not smooth near crossover, suspect nonlinear behavior, excessive perturbation amplitude, or time-step issues before trusting the margin.
+- For digital control, include sampling, computation delay, PWM zero-order hold, and filtering in the loop.
 
-## 瞬态响应检查
+## Transient Checks
 
-- 先跑负载阶跃，再跑输入扰动；阶跃幅度从小到大增加，避免一开始就触发保护。
-- 同时观察输出电压、输出电流、电感/变压器电流、误差信号、补偿器输出、占空比、限流标志。
-- 欠阻尼振铃接近 LC 或采样相关频率时，优先检查相位裕度、ESR 零点和采样延迟。
-- 响应慢但不振荡时，优先检查带宽过低、积分限幅、软启动残留、补偿零点位置。
-- 过冲后长时间恢复时，优先检查积分饱和、anti-windup 和控制量限幅。
+- Run load-step tests before input perturbation tests. Increase step size gradually to avoid triggering protection before the loop behavior is understood.
+- Observe output voltage, output current, inductor or transformer current, error signal, compensator output, duty command, and limit flags together.
+- If ringing is near the LC or sampling-related frequency, check phase margin, ESR zero placement, and sampling delay.
+- If the response is slow but not oscillatory, check low bandwidth, weak zero placement, integral limiting, or soft-start state.
+- If recovery is slow after overshoot, check integrator windup, anti-windup, and command saturation.
 
-## 扫参建议
+## Sweep Suggestions
 
-- 最小扫参集合：Vin min/max、负载 min/max、L/C/ESR 容差、补偿关键零极点、采样延迟。
-- 每次只改一个主要变量，记录异常从哪个阈值开始出现。
-- 对疑似控制问题，把平均模型和开关模型在同一工况下对比；平均模型稳定而开关模型振荡时，重点看采样、PWM、限幅和次谐波。
-- 对疑似功率级问题，把控制器固定或简化后观察自然频率和阻尼变化。
+- Minimum sweep set: Vin min/max, load min/max, L/C/ESR tolerance, key compensation zeros/poles, and sampling delay.
+- Change one main variable at a time and record the threshold where the abnormal behavior starts.
+- Compare averaged and switching models at the same operating point. If the averaged model is stable but the switching model oscillates, inspect sampling, PWM behavior, saturation, and subharmonic oscillation.
+- If the power stage is suspected, hold or simplify the controller and observe the natural frequency and damping.
 
-## 常见 PLECS 陷阱
+## Common PLECS Pitfalls
 
-- 用理想器件得到的稳定结论可能被 ESR、死区、延迟或限幅推翻。
-- 仿真步长过粗会掩盖开关纹波、采样点错误和高频振荡。
-- 自动初始化得到的稳态不一定符合真实启动路径；瞬态异常要区分初始化问题和控制问题。
-- 多速率控制器中，采样周期、PWM 周期和控制更新周期不一致时，要明确每个模块的执行时刻。
+- Stability conclusions from ideal devices can be invalidated by ESR, dead time, delay, or saturation.
+- A coarse time step can hide switching ripple, sample-point mistakes, and high-frequency oscillation.
+- Automatic initialization may not match the real startup path; separate initialization artifacts from control-loop behavior.
+- In multi-rate controllers, explicitly document each module's sample time, PWM period, and update instant.

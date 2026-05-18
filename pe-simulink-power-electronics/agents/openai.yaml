@@ -1,6 +1,6 @@
 interface:
   display_name: "PE Simulink Simulation"
-  short_description: "MATLAB/Simulink 电力电子建模、控制联合仿真与可信度检查"
+  short_description: "MATLAB/Simulink power electronics modeling and simulation validation"
   default_prompt: "Use $pe-simulink-power-electronics to plan or debug a MATLAB/Simulink power electronics simulation."
 
 policy:

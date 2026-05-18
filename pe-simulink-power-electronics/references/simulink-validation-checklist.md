@@ -1,31 +1,31 @@
-# Simulink 电力电子仿真可信度检查清单
+# Simulink Power Electronics Simulation Credibility Checklist
 
-## 必查设置
+## Required Settings
 
-- 模型层级是否匹配问题：开关细节、平均环路、系统级行为不要混用结论。
-- Solver、最大步长、采样时间和 PWM 频率是否匹配。
-- 控制器离散化方式是否与目标实现一致。
-- 初始条件、软启动和保护状态是否记录。
-- 负载模型是电阻、恒流、恒功率还是下游变换器。
+- Confirm the model level matches the question: do not mix conclusions from switching detail, averaged loop design, and system-level behavior.
+- Check solver, maximum step size, sample time, and PWM frequency alignment.
+- Confirm controller discretization matches the target implementation.
+- Record initial conditions, soft-start state, and protection state.
+- Identify the load model: resistor, constant-current load, constant-power load, or downstream converter.
 
-## 必看波形
+## Required Waveforms
 
-- 输入电压、电感/变压器电流、输出电压、输出电流。
-- 误差信号、补偿器输出、占空比或频率指令。
-- 限流、过压、欠压、模式切换和软启动状态。
-- ADC 采样点、PWM 载波、比较器输出或数字控制更新时刻。
+- Input voltage, inductor or transformer current, output voltage, and output current.
+- Error signal, compensator output, duty command, or frequency command.
+- Current limit, over-voltage, under-voltage, mode transition, and soft-start status.
+- ADC sample point, PWM carrier, comparator output, or digital control update instant.
 
-## 常见不可信信号
+## Signals That May Be Untrustworthy
 
-- 改变最大步长后结论大幅变化。
-- 平均模型稳定但开关模型在固定工况振荡。
-- 负载阶跃响应混入启动过程。
-- 控制器输出长期打限幅，却继续用线性环路结论解释。
-- 采样点落在开关尖峰或死区附近。
+- The conclusion changes strongly when maximum step size changes.
+- The averaged model is stable, but the switching model oscillates at a fixed condition.
+- Load-step response includes startup behavior.
+- The controller output remains saturated while the analysis uses only linear loop-margin language.
+- The sample point lands near a switching spike or dead-time transition.
 
-## 最小复现
+## Minimum Reproduction
 
-- 删除与异常无关的系统级模块。
-- 固定输入和负载，只保留一个异常工况。
-- 固定控制量验证功率级，再恢复闭环。
-- 保存参数快照和仿真设置，避免只保存波形截图。
+- Remove system-level modules unrelated to the abnormal behavior.
+- Fix input and load so only one abnormal operating condition remains.
+- Fix the command to validate the power stage, then restore closed loop.
+- Save the parameter snapshot and simulation settings, not only waveform screenshots.

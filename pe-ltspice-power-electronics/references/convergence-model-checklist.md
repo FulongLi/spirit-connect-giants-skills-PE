@@ -1,31 +1,31 @@
-# LTspice 收敛和模型可信度清单
+# LTspice Convergence And Model Credibility Checklist
 
-## 先修模型物理性
+## Fix Model Physicality First
 
-- 避免理想电压源直接并联理想电容。
-- 避免理想电流源直接串联理想电感。
-- 给电感、电容、开关和走线加入合理寄生。
-- 检查悬空节点、高阻节点和没有 DC 路径的控制输入。
+- Avoid ideal voltage sources directly in parallel with ideal capacitors.
+- Avoid ideal current sources directly in series with ideal inductors.
+- Add reasonable parasitics to inductors, capacitors, switches, and interconnect.
+- Check floating nodes, high-impedance nodes, and control inputs without a DC path.
 
-## 再调仿真设置
+## Then Tune Simulation Settings
 
-- 降低最大步长，观察关键结论是否变化。
-- 必要时设置初始条件，但要记录原因，避免掩盖启动问题。
-- 谨慎使用 `.options`，不要用放宽容差替代模型修正。
-- 对强非线性模型，逐步启用真实器件特性。
+- Reduce maximum time step and check whether the key conclusion changes.
+- Use initial conditions only when needed, and record why they are needed so startup issues are not hidden.
+- Use `.options` carefully. Do not relax tolerances as a substitute for fixing the model.
+- For strongly nonlinear models, enable realistic device behavior incrementally.
 
-## 器件模型检查
+## Device Model Checks
 
-- 控制芯片宏模型可能只适合典型应用，不一定适合 AC、启动或保护边界测试。
-- 运放和比较器模型要检查输出摆幅、输入共模、压摆率、延迟和饱和恢复。
-- MOSFET 模型要检查体二极管、输出电容、栅电荷和温度假设。
-- 二极管模型要检查反向恢复和结电容是否影响目标波形。
+- Controller macro-models may only support typical application behavior and may not be valid for AC, startup, or protection-boundary tests.
+- Op amp and comparator models should include output swing, input common-mode range, slew rate, delay, and saturation recovery if those effects matter.
+- MOSFET models should be checked for body diode behavior, output capacitance, gate charge, and temperature assumptions.
+- Diode models should be checked for reverse recovery and junction capacitance when they affect the target waveform.
 
-## 可信度结论
+## Credibility Gate
 
-在给出工程结论前，至少确认：
+Before making an engineering conclusion, confirm:
 
-- 关键波形对最大步长不敏感。
-- 模型没有明显非物理理想源冲突。
-- 目标工况已进入稳态或明确处于启动路径。
-- 控制器没有进入未建模或错误建模的保护状态。
+- Key waveforms are not sensitive to maximum time step.
+- The model has no obvious non-physical ideal-source conflicts.
+- The target condition is at steady state, or the analysis explicitly concerns startup.
+- The controller has not entered an unmodeled or incorrectly modeled protection state.

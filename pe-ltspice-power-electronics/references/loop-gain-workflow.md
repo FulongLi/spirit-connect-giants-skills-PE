@@ -1,27 +1,27 @@
-# LTspice 环路注入与补偿验证
+# LTspice Loop-Gain Injection And Compensation Validation
 
-## 使用平均模型优先
+## Prefer Averaged Models
 
-- 对环路增益和补偿验证，优先建立平均功率级或受控源模型。
-- 明确调制器增益、采样保持、输出 LC、ESR 零点和负载等效。
-- AC 结论必须绑定工况：Vin、Vout、负载、占空比和模式。
+- For loop-gain and compensation validation, prefer an averaged power-stage model or controlled-source representation.
+- Explicitly model modulator gain, sample-and-hold behavior, output LC, ESR zero, and load equivalent.
+- Tie every AC conclusion to an operating condition: Vin, Vout, load, duty ratio, and mode.
 
-## 注入方式检查
+## Injection Method Checks
 
-- 注入点应保留 DC 偏置，不破坏工作点。
-- 确认测量方向，避免把相位裕度读反。
-- 扰动幅值要足够小，避免触发限幅或改变工作模式。
-- 如果用开关模型测量环路，需确认周期平均、稳态时间和扰动方法可靠。
+- The injection point should preserve DC bias and avoid breaking the operating point.
+- Confirm measurement polarity so phase margin is not interpreted backward.
+- Keep perturbation amplitude small enough to avoid saturation or mode changes.
+- If measuring loop gain on a switching model, verify cycle averaging, steady-state time, and perturbation method.
 
-## 补偿验证
+## Compensation Validation
 
-- 检查交越频率、相位裕度、增益裕度和低频增益。
-- 对含 RHP zero 的拓扑，带宽要避开不可跨越的相位限制。
-- 对电流模式控制，加入电流采样增益、斜坡补偿和采样延迟。
-- 对数字控制或采样控制，加入 ZOH、计算延迟和 PWM 更新延迟。
+- Check crossover frequency, phase margin, gain margin, and low-frequency gain.
+- For RHP-zero topologies, keep bandwidth below the phase-limited region.
+- For current-mode control, include current-sense gain, slope compensation, and sample delay.
+- For digital or sampled control, include ZOH, computation delay, and PWM update delay.
 
-## 结果异常时
+## When Results Look Wrong
 
-- 曲线毛刺或不平滑：检查非线性限幅、扰动过大、未稳定、注入点错误。
-- 相位跳变异常：检查测量方向、参考节点和传递函数定义。
-- AC 稳定但瞬态振荡：检查开关模型中的采样、限幅、延迟和次谐波。
+- Spikes or rough curves: check nonlinear limiting, excessive perturbation, insufficient settling time, or incorrect injection point.
+- Abnormal phase jump: check measurement direction, reference node, and transfer-function definition.
+- AC stable but transient oscillates: inspect sampling, saturation, delay, and subharmonic behavior in the switching model.

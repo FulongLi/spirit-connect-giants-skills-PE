@@ -15,12 +15,12 @@ PLANNED_SKILLS = [
     {
         "name": "pe-ansys-electromagnetic-thermal",
         "status": "planned",
-        "focus": "ANSYS Maxwell/Icepak/Mechanical 电磁、损耗与热仿真工作流",
+        "focus": "ANSYS Maxwell/Icepak/Mechanical workflows for electromagnetic loss, thermal, and coupled-field simulation.",
     },
     {
         "name": "pe-comsol-electromagnetic-thermal",
         "status": "planned",
-        "focus": "COMSOL 电磁场、热场、多物理场耦合建模与可信度检查",
+        "focus": "COMSOL workflows for electromagnetic fields, thermal fields, and multiphysics validation.",
     },
 ]
 
@@ -96,9 +96,9 @@ def generate() -> str:
 
     return f"""# Spirit Connect Giants Skills PE
 
-这是一个面向电力电子研发的 Codex Skills 仓库。目标是把项目经验、仿真流程、调试判断和工程 checklist 沉淀成可复用的 AI 工作流，帮助更多人在电力电子设计、仿真和问题定位中少走弯路。
+Spirit Connect Giants Skills PE is a Codex Skills repository for power electronics engineering. Its purpose is to turn project experience, simulation workflows, debugging judgment, and engineering checklists into reusable AI workflows that can help more people design, simulate, and diagnose power electronics systems.
 
-当前第一阶段聚焦仿真与调试：控制环路、PLECS、LTspice、MATLAB/Simulink。后续会扩展到 ANSYS 和 COMSOL 的电磁仿真、热仿真和多物理场耦合。
+The first stage focuses on simulation and debugging for control loops, PLECS, LTspice, and MATLAB/Simulink. Future skills will cover ANSYS and COMSOL workflows for electromagnetic simulation, thermal simulation, and coupled multiphysics validation.
 
 Generated on: {today}
 
@@ -110,22 +110,40 @@ Generated on: {today}
 
 {planned_table}
 
-## Repository Convention
+## How To Use These Skills
 
-- 每个技能放在独立目录中，必须包含 `SKILL.md`。
-- 详细工具流程、检查清单和案例模板放入 `references/`，由 `SKILL.md` 按需引用。
-- UI 元数据放入 `agents/openai.yaml`，用于展示名称、简介和默认调用提示。
-- 项目复盘默认脱敏：删除客户名、项目代号、产品名、精确商业参数和内部路径。
+1. Install or copy the skill folder you want to use into your Codex skills directory.
+2. Invoke a skill explicitly by name, for example: `Use $pe-ltspice-power-electronics to debug this LTspice converter simulation`.
+3. Provide the engineering context the skill asks for: topology, operating range, control method, simulation tool, abnormal waveform, solver settings, and what you are trying to prove.
+4. Let the skill load only the relevant `references/` files. The `SKILL.md` file gives the high-level workflow; the references contain tool-specific procedures and checklists.
+5. When capturing project experience, remove customer names, project codenames, product names, exact confidential parameters, internal file paths, and any screenshot metadata that could reveal sensitive information.
 
-## README Update
+## How To Add Or Update A Skill
 
-每次新增、重命名或更新技能后，运行：
+1. Create or edit a folder named after the skill, for example `pe-new-topic/`.
+2. Keep the required workflow instructions in `pe-new-topic/SKILL.md`.
+3. Put detailed procedures, checklists, templates, and examples under `pe-new-topic/references/`.
+4. Add `pe-new-topic/agents/openai.yaml` with a display name, short description, and default prompt.
+5. Run the update and validation commands:
 
 ```bash
 python3 scripts/update_readme.py
+python3 scripts/validate_skills.py
 ```
 
-脚本会扫描所有 `*/SKILL.md`，自动更新 Active Skills 表格和生成日期，让 README 反映当前仓库状态。GitHub Actions 会在 push 和 pull request 时检查 README 是否已经同步。未来新增 ANSYS、COMSOL 或其他电力电子技能时，也应同步更新 `scripts/update_readme.py` 中的 planned 列表或将对应技能目录落地。
+`scripts/update_readme.py` scans all `*/SKILL.md` files and regenerates the Active Skills table and generated date. `scripts/validate_skills.py` checks skill metadata, referenced files, UI metadata, and whether README is current.
+
+## Repository Convention
+
+- Each skill lives in a standalone directory and must include `SKILL.md`.
+- Detailed tool workflows and checklists live in `references/` and are loaded only when needed.
+- UI metadata lives in `agents/openai.yaml`.
+- Skill content should be primarily English so the repository can help a broader engineering audience.
+- Case studies should be anonymized by default.
+
+## Automation
+
+GitHub Actions runs the same README freshness and skill validation checks on push and pull request. If README is stale after a skill update, the CI check fails and tells the contributor to run `python3 scripts/update_readme.py`.
 """
 
 

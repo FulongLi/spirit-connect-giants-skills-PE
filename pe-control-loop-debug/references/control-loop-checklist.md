@@ -1,47 +1,47 @@
-# 控制环路调试检查清单
+# Control-Loop Debugging Checklist
 
-## 先看症状
+## Start From The Symptom
 
-- 振荡频率接近 LC 谐振：检查相位裕度、ESR 零点、补偿零点和输出电容等效参数。
-- 振荡频率接近开关频率一半：检查峰值电流模式的斜坡补偿、采样点和次谐波振荡。
-- 负载阶跃过冲大：检查带宽、相位裕度、积分饱和、限流、输出电容和负载模型。
-- 恢复慢但无振荡：检查交越频率过低、补偿零点太低、积分限幅和软启动状态。
-- 某个 Vin 或负载范围才异常：检查工作模式切换、占空比极限、RHP zero、谐振区域或采样延迟占比。
+- Oscillation near the LC resonance: check phase margin, ESR zero, compensation zero placement, and effective output capacitance.
+- Oscillation near half the switching frequency: check slope compensation, sample timing, and subharmonic oscillation in peak-current-mode control.
+- Large load-step overshoot: check bandwidth, phase margin, integrator windup, current limit, output capacitance, and load model.
+- Slow recovery without oscillation: check low crossover frequency, misplaced compensation zero, integral limiting, and soft-start state.
+- Abnormal behavior only at one Vin or load range: check mode transition, duty-cycle limit, RHP zero, resonant operating region, or sampling-delay ratio.
 
-## 控制器和补偿
+## Controller And Compensation
 
-- 明确补偿类型：Type II、Type III、PI、PID、数字 IIR/FIR 或状态机控制。
-- 交越频率不要只按典型工况设置，必须覆盖 Vin、负载、L/C/ESR 容差和模式切换。
-- 电压模式 Boost/反激等含 RHP zero 的拓扑，带宽要避开 RHP zero 带来的相位限制。
-- 电流模式控制要检查电流采样斜率、斜坡补偿、峰值限流和电流检测滤波延迟。
-- 数字控制要把采样延迟、计算延迟、PWM 更新和量化纳入相位裕度评估。
+- Identify the compensation form: Type II, Type III, PI, PID, digital IIR/FIR, or state-machine control.
+- Do not set crossover only at a typical condition; cover Vin, load, L/C/ESR tolerance, and mode transitions.
+- For voltage-mode Boost, flyback, and other RHP-zero topologies, keep bandwidth below the phase-limited region.
+- For current-mode control, inspect current-sense gain, slope compensation, peak current limit, and current-sense filter delay.
+- For digital control, include sampling delay, computation delay, PWM update, and quantization in the phase-margin estimate.
 
-## 功率级和负载
+## Power Stage And Load
 
-- 输出电容 ESR、MLCC DC bias、温度和并联组合会改变零点和阻尼。
-- 电感 DCR、饱和、磁芯损耗和电流纹波会改变等效功率级动态。
-- 负载模型要区分电阻负载、恒流负载、恒功率负载和下游变换器。
-- 对 LLC 等频率控制拓扑，确认增益曲线斜率、工作区间和频率限幅。
+- Output capacitor ESR, MLCC DC bias, temperature, and parallel combinations move zeros and damping.
+- Inductor DCR, saturation, core loss, and current ripple change effective power-stage dynamics.
+- Distinguish resistive load, constant-current load, constant-power load, and downstream converter load.
+- For LLC and other frequency-controlled topologies, confirm gain-curve slope, operating region, and frequency limits.
 
-## 采样、PWM 和限幅
+## Sampling, PWM, And Saturation
 
-- 检查采样点是否避开开关尖峰和二极管恢复噪声。
-- PWM 更新时刻要和控制器计算时刻匹配，避免额外一拍延迟。
-- 误差放大器输出、占空比、电流参考和频率指令都要检查是否打到限幅。
-- 任何限幅都会改变小信号模型；进入限幅后不要继续用线性环路裕度解释全部现象。
+- Check whether the sampling point avoids switching spikes and diode-recovery noise.
+- Match PWM update instant with controller computation timing to avoid an extra-cycle delay.
+- Inspect whether the error amplifier output, duty command, current reference, or frequency command is saturated.
+- Once a loop enters saturation, do not explain the full response using linear loop margin only.
 
-## 仿真可信度
+## Simulation Credibility
 
-- 同一工况下用平均模型和开关模型交叉验证。
-- 检查 Bode 注入点、扰动幅值、测量方向和稳态工作点。
-- 对异常波形做最小化复现：减少控制环节、固定控制量、降低模型复杂度。
-- 记录每个结论依赖的仿真设置：步长、求解器、初始条件、模型版本和参数表。
+- Cross-check averaged and switching models at the same operating condition.
+- Verify Bode injection point, perturbation amplitude, measurement direction, and steady operating point.
+- Build a minimum reproduction by reducing unrelated control blocks, fixing the command, and simplifying the model.
+- Record the simulation settings behind each conclusion: step size, solver, initial condition, model version, and parameter table.
 
-## 最小诊断输出
+## Minimum Diagnostic Output
 
-每次结论至少给出：
+Every conclusion should include:
 
-- 最可能根因。
-- 支持该判断的波形或仿真证据。
-- 一个最快验证动作。
-- 一个如果验证失败就转向的备选假设。
+- The most likely root cause.
+- The waveform or simulation evidence supporting it.
+- The fastest validation action.
+- The next hypothesis if that validation fails.

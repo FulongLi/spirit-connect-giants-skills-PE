@@ -1,64 +1,64 @@
-# 匿名案例模板
+# Anonymized Case Template
 
-用于把项目经验整理成可共享的控制环路调试案例。目标是保留工程判断价值，同时去掉客户、项目、产品和商业敏感信息。
+Use this template to turn project experience into a shareable control-loop debugging case. The goal is to preserve engineering judgment while removing customer, project, product, and commercial-sensitive information.
 
-## 脱敏规则
+## Anonymization Rules
 
-- 删除客户名、项目代号、产品名、供应商专属料号和内部版本号。
-- 参数只保留工程范围或相对关系，例如“高压输入端”“轻载 10% 以下”“交越频率约为开关频率的十分之一”。
-- 不记录可反推出产品规格的完整输入/输出组合、功率等级、成本、量产时间和客户场景。
-- 图片和波形截图要去掉标题栏、路径、文件名、客户 logo 和坐标中敏感绝对值。
-- 若某个细节对根因不必要，默认删除。
+- Remove customer names, project codenames, product names, supplier-specific part numbers, and internal version identifiers.
+- Keep parameters as engineering ranges or relative relationships, such as "high input voltage condition", "below 10% load", or "crossover near one tenth of switching frequency".
+- Do not record complete input/output/power combinations, cost, release timing, or customer use cases if they could identify the product.
+- Remove title bars, file paths, customer logos, and sensitive absolute values from waveform screenshots.
+- If a detail is not necessary to explain the root cause, remove it by default.
 
-## 案例结构
+## Case Structure
 
-### 背景
+### Background
 
-- 拓扑：
-- 控制方式：
-- 仿真/调试工具：
-- 工况范围：
-- 目标现象或指标：
+- Topology:
+- Control method:
+- Simulation or debugging tool:
+- Operating range:
+- Target behavior or metric:
 
-### 症状
+### Symptom
 
-- 异常出现的条件：
-- 主要波形表现：
-- 是否与 Vin、负载、温度、启动、限流或模式切换相关：
+- Condition where the abnormal behavior appears:
+- Main waveform behavior:
+- Relationship to Vin, load, temperature, startup, current limit, or mode transition:
 
-### 初始假设
+### Initial Hypotheses
 
-- 假设 1：
-- 假设 2：
-- 假设 3：
+- Hypothesis 1:
+- Hypothesis 2:
+- Hypothesis 3:
 
-### 定位路径
+### Diagnosis Path
 
-- 做过的仿真或实验：
-- 每一步观察到的证据：
-- 被排除的原因：
-- 最关键的对比实验：
+- Simulations or experiments performed:
+- Evidence observed at each step:
+- Causes eliminated:
+- Most important comparison experiment:
 
-### 根因
+### Root Cause
 
-- 根因分类：稳定性 / 补偿参数 / 采样延迟 / 模型设置 / 功率级参数 / 仿真可信度
-- 根因描述：
-- 为什么之前没有暴露：
+- Root-cause category: stability / compensation parameters / sampling delay / model setup / power-stage parameters / simulation credibility
+- Root-cause description:
+- Why it was not exposed earlier:
 
-### 修复
+### Fix
 
-- 修改内容：
-- 修改后的波形或指标变化：
-- 副作用和新增约束：
-- 是否需要覆盖其他工况：
+- Change made:
+- Waveform or metric change after the fix:
+- Side effects and new constraints:
+- Other operating conditions that need coverage:
 
-### 可复用规则
+### Reusable Rules
 
-- 下次遇到类似症状时先检查：
-- 必须记录的关键波形：
-- 不要犯的错误：
-- 可以沉淀进 checklist 的规则：
+- Check this first next time:
+- Key waveforms to record:
+- Mistake to avoid:
+- Rule that should be added to the checklist:
 
-## 输出要求
+## Output Requirement
 
-整理案例时，用工程事实和定位动作表达，不写个人评价；如果信息不足，标注“未记录”或“需要补充”，不要编造参数。
+Write cases in engineering facts and diagnosis actions, not personal evaluation. If information is missing, mark it as "not recorded" or "needs follow-up"; do not invent parameters.

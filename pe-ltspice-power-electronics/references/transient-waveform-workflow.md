@@ -1,29 +1,29 @@
-# LTspice 瞬态与波形诊断工作流
+# LTspice Transient And Waveform Diagnosis Workflow
 
-## 启动前检查
+## Pre-Run Checks
 
-- 确认输入源、负载、初始条件和控制器软启动路径符合目标实验。
-- 对开关电源，最大步长应足够解析 PWM、死区、开关沿和采样时刻。
-- 先用理想器件跑通拓扑，再逐步替换真实 MOSFET、二极管、运放和控制芯片模型。
+- Confirm the input source, load, initial conditions, and controller soft-start path match the target experiment.
+- For switching converters, set the maximum time step fine enough to resolve PWM behavior, dead time, switching edges, and sample instants.
+- Start with ideal devices to prove the topology and operating point, then add realistic MOSFET, diode, op amp, and controller models step by step.
 
-## 必看波形
+## Required Waveforms
 
-- Vin、Vout、负载电流、输入电流。
-- 开关节点、电感/变压器电流、二极管或同步管电流。
-- 误差信号、补偿节点、PWM 比较信号、占空比或频率控制量。
-- 限流、软启动、保护脚和控制器供电脚。
+- Vin, Vout, load current, and input current.
+- Switching node, inductor or transformer current, diode current, and synchronous FET current.
+- Error signal, compensation node, PWM comparator signal, duty command, or frequency command.
+- Current-limit flag, soft-start signal, protection pins, and controller supply pins.
 
-## 诊断顺序
+## Diagnosis Sequence
 
-1. 固定占空比或频率，确认功率级本身是否工作正常。
-2. 恢复闭环，观察误差信号和补偿节点是否打限幅。
-3. 改变负载和输入，记录异常出现的边界。
-4. 改变最大步长，确认结论不是数值伪影。
-5. 替换理想/真实器件模型，定位异常来自电路、控制还是模型。
+1. Force duty ratio or frequency and confirm the power stage works at the target operating condition.
+2. Restore closed loop and inspect whether the error signal or compensation node rails.
+3. Sweep load and input voltage to record the boundary where the issue appears.
+4. Change maximum time step to confirm the conclusion is not a numerical artifact.
+5. Swap ideal and realistic device models to separate circuit, control, and model effects.
 
-## 常见波形含义
+## Common Waveform Meanings
 
-- 补偿节点打满：优先检查启动、限流、输出目标、反馈比例和积分饱和。
-- 开关节点尖峰过大：检查寄生电感、缓冲网络、二极管恢复和探针参考点。
-- 电感电流周期性大小波：检查峰值电流模式斜坡补偿和采样噪声。
-- 输出振铃接近 LC：检查补偿零极点、输出电容 ESR 和负载模型。
+- Compensation node railed: check startup, current limit, output target, feedback ratio, and integrator windup.
+- Excessive switching-node spike: check parasitic inductance, snubber network, diode recovery, and probe reference.
+- Alternating large/small inductor current cycles: check peak-current-mode slope compensation and sampling noise.
+- Output ringing near LC resonance: check compensation zero/pole placement, output capacitor ESR, and load model.

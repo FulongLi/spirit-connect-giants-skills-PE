@@ -1,27 +1,27 @@
-# 控制联合仿真与扫参工作流
+# Control Co-Simulation And Sweep Workflow
 
-## 控制器实现检查
+## Controller Implementation Checks
 
-- 明确控制器是连续域、离散域还是代码同源实现。
-- 记录采样周期、PWM 更新周期、计算延迟、滤波器延迟和饱和限制。
-- 检查 anti-windup、限幅、模式切换和保护状态机是否进入目标路径。
-- 数字控制器要检查量化、数据类型、归一化和固定点范围。
+- Identify whether the controller is continuous-domain, discrete-domain, or code-identical to the target implementation.
+- Record sample time, PWM update period, computation delay, filter delay, and saturation limits.
+- Check anti-windup, saturation, mode transition, and protection state-machine paths.
+- For digital controllers, inspect quantization, data types, normalization, and fixed-point range.
 
-## 基础实验顺序
+## Baseline Experiment Order
 
-1. 固定控制量，验证功率级在目标工况下可正常工作。
-2. 使用平均功率级闭环，确认补偿参数和环路趋势。
-3. 切换到开关模型，比较稳态误差、纹波、瞬态和控制量。
-4. 增加寄生、延迟和限幅，观察异常从哪个因素开始出现。
-5. 扫 Vin、负载、L/C/ESR 容差和采样延迟，定位最差工况。
+1. Fix the command and verify that the power stage works at the target condition.
+2. Close the loop with an averaged power stage to confirm compensation parameters and loop trend.
+3. Switch to the switching model and compare steady-state error, ripple, transient response, and command signal.
+4. Add parasitics, delay, and saturation to see which factor introduces the abnormal behavior.
+5. Sweep Vin, load, L/C/ESR tolerance, and sampling delay to find the worst case.
 
-## 扫参输出
+## Sweep Output
 
-- 每个扫参结果至少记录工况、模型层级、solver 设置、关键指标和失败原因。
-- 关键指标包括过冲、恢复时间、稳态误差、峰值电流、占空比/频率限幅、保护触发。
-- 对异常点保存最小复现模型或参数集，方便后续定位。
+- Each sweep result should record the operating condition, model level, solver settings, key metrics, and failure reason.
+- Key metrics include overshoot, recovery time, steady-state error, peak current, duty/frequency saturation, and protection events.
+- Save the minimum reproduction model or parameter set for any abnormal point.
 
-## 与 PLECS/LTspice 交叉验证
+## Cross-Checking With PLECS Or LTspice
 
-- 控制环路结论可用 PLECS 快速扫参或 LTspice 小电路验证关键假设。
-- 如果 Simulink 和电路级工具结论冲突，优先检查模型层级、注入点、延迟和参数单位。
+- Loop conclusions can be cross-checked with PLECS sweeps or LTspice small circuits.
+- If Simulink and circuit-level tools disagree, inspect model level, injection point, delays, and parameter units first.

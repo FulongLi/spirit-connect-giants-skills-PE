@@ -3,45 +3,45 @@ name: pe-simulink-power-electronics
 description: Use this skill for MATLAB and Simulink power electronics simulation workflows, including Simscape Electrical modeling, switching and averaged converter models, control-loop co-simulation, solver setup, parameter sweeps, waveform validation, and debugging unreliable simulation results.
 ---
 
-# MATLAB/Simulink 电力电子仿真
+# MATLAB/Simulink Power Electronics Simulation
 
-## 使用目标
+## Goal
 
-面向电力电子研发工程师，用于规划、搭建、检查和调试 MATLAB/Simulink/Simscape Electrical 中的电力电子仿真。优先帮助用户把模型变得可验证、可扫参、可复现。
+Use this skill to plan, build, inspect, and debug power electronics simulations in MATLAB, Simulink, and Simscape Electrical. The priority is to make the model verifiable, sweepable, and reproducible.
 
-## 先判断仿真类型
+## Classify The Simulation Type
 
-收到需求后先分类：
+When a request arrives, first classify it:
 
-- 功率级开关模型：关注器件、PWM、采样、开关纹波、寄生和求解器稳定性。
-- 平均模型：关注控制器、传递函数、工况扫参、环路稳定性和快速迭代。
-- 控制联合仿真：关注离散控制、采样周期、PWM 更新、延迟、限幅和 anti-windup。
-- 系统级仿真：关注上游/下游源负载、母线、电机/逆变器、保护状态机和工况覆盖。
-- 模型可信度问题：关注 solver、步长、初始条件、单位、参数来源和波形测量位置。
+- Switching power-stage model: device behavior, PWM, sampling, switching ripple, parasitics, and solver stability.
+- Averaged model: controller design, transfer functions, operating-point sweeps, loop stability, and fast iteration.
+- Control co-simulation: discrete control, sample time, PWM update, delay, saturation, and anti-windup.
+- System-level simulation: upstream/downstream source and load, DC link, motor drive or inverter, protection state machine, and operating coverage.
+- Model credibility issue: solver, time step, initial conditions, units, parameter source, and waveform measurement location.
 
-## 信息不足时追问
+## Ask For Missing Inputs
 
-只追问会改变建模方案或诊断结论的信息：
+Ask only for information that changes the modeling strategy or diagnosis:
 
-- 拓扑、功率级参数、输入/输出范围和负载类型。
-- 使用 Simscape Electrical、Specialized Power Systems 还是纯 Simulink 模型。
-- 目标是开关细节、平均控制设计、系统级行为还是代码生成前验证。
-- 控制器采样周期、PWM 频率、离散/连续实现方式。
-- 当前异常波形、solver 设置、最大步长、是否存在代数环或收敛报错。
+- Topology, power-stage parameters, input/output range, and load type.
+- Whether the model uses Simscape Electrical, Specialized Power Systems, or pure Simulink blocks.
+- Whether the goal is switching detail, averaged control design, system-level behavior, or pre-code-generation validation.
+- Controller sample time, PWM frequency, and continuous/discrete implementation style.
+- Current abnormal waveform, solver settings, maximum step size, algebraic loop, or convergence error.
 
-## 参考资料
+## References
 
-按需读取：
+Load only what is needed:
 
-- 建模和 solver 设置：`references/modeling-solver-workflow.md`
-- 控制联合仿真与扫参：`references/control-sweep-workflow.md`
-- 模型可信度检查清单：`references/simulink-validation-checklist.md`
+- Modeling and solver setup: `references/modeling-solver-workflow.md`
+- Control co-simulation and parameter sweeps: `references/control-sweep-workflow.md`
+- Model credibility checklist: `references/simulink-validation-checklist.md`
 
-## 标准输出结构
+## Default Answer Structure
 
-1. 仿真目标复述：明确用户要验证的是功率级、控制器、系统行为还是故障。
-2. 推荐模型层级：说明应使用开关模型、平均模型或两者组合。
-3. Simulink/Simscape 设置：给出 solver、步长、初始化、采样周期和测量点建议。
-4. 检查实验：给出扫参、负载阶跃、输入扰动、控制器对比或模型简化实验。
-5. 关键波形和指标：列出必须记录的信号和合格判据。
-6. 下一步：给出最小可执行动作，优先能快速验证模型可信度。
+1. Simulation target restatement: clarify whether the user is validating the power stage, controller, system behavior, or a fault.
+2. Recommended model level: state whether to use a switching model, averaged model, or both.
+3. Simulink/Simscape settings: suggest solver, step size, initialization, sample time, and measurement points.
+4. Check experiments: propose sweeps, load steps, input perturbations, controller comparisons, or model simplification experiments.
+5. Key waveforms and metrics: list the signals and pass/fail criteria that must be recorded.
+6. Next step: provide the smallest executable action that can quickly validate model credibility.
