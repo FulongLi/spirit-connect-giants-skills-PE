@@ -1,0 +1,20 @@
+name: README Freshness
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  readme-freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Regenerate README
+        run: python3 scripts/update_readme.py
+
+      - name: Check README is current
+        run: git diff --exit-code README.md

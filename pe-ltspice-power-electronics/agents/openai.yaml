@@ -1,0 +1,7 @@
+interface:
+  display_name: "PE LTspice Simulation"
+  short_description: "LTspice 电力电子瞬态、小信号、环路注入与收敛调试"
+  default_prompt: "Use $pe-ltspice-power-electronics to debug an LTspice power electronics simulation."
+
+policy:
+  allow_implicit_invocation: true
