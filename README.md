@@ -12,6 +12,7 @@ Generated on: 2026-05-18
 | --- | --- | --- | ---: |
 | [`pe-control-loop-debug`](./pe-control-loop-debug/SKILL.md) | active | Power Electronics Control-Loop Simulation And Debugging | 4 |
 | [`pe-ltspice-power-electronics`](./pe-ltspice-power-electronics/SKILL.md) | active | LTspice Power Electronics Simulation | 3 |
+| [`pe-plecs-power-electronics`](./pe-plecs-power-electronics/SKILL.md) | active | PLECS Power Electronics Simulation | 4 |
 | [`pe-simulink-power-electronics`](./pe-simulink-power-electronics/SKILL.md) | active | MATLAB/Simulink Power Electronics Simulation | 3 |
 
 ## Planned Skills

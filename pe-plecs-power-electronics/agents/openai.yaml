@@ -1,0 +1,7 @@
+interface:
+  display_name: "PE PLECS Simulation"
+  short_description: "PLECS power electronics modeling, loop analysis, sweeps, and loss/thermal validation"
+  default_prompt: "Use $pe-plecs-power-electronics to plan or debug a PLECS power electronics simulation."
+
+policy:
+  allow_implicit_invocation: true
