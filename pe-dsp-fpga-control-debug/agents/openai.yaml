@@ -1,0 +1,7 @@
+interface:
+  display_name: "PE DSP/FPGA Control Debug"
+  short_description: "DSP, MCU, FPGA, and high-speed digital control debugging for power electronics"
+  default_prompt: "Use $pe-dsp-fpga-control-debug to debug a DSP or FPGA power electronics control implementation."
+
+policy:
+  allow_implicit_invocation: true
