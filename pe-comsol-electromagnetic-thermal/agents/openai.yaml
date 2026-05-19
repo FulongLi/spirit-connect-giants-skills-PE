@@ -1,0 +1,7 @@
+interface:
+  display_name: "PE COMSOL EM/Thermal"
+  short_description: "COMSOL electromagnetic, thermal, and multiphysics workflows for power electronics"
+  default_prompt: "Use $pe-comsol-electromagnetic-thermal to review or plan a COMSOL electromagnetic and thermal simulation for a power electronics design."
+
+policy:
+  allow_implicit_invocation: true

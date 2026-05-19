@@ -1,0 +1,7 @@
+interface:
+  display_name: "PE ANSYS EM/Thermal"
+  short_description: "ANSYS Maxwell, Q3D, Icepak, and Mechanical workflows for power electronics EM and thermal simulation"
+  default_prompt: "Use $pe-ansys-electromagnetic-thermal to review or plan an ANSYS electromagnetic and thermal simulation for a power electronics design."
+
+policy:
+  allow_implicit_invocation: true

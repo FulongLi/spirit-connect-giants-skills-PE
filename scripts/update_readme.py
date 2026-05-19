@@ -11,18 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 
-PLANNED_SKILLS = [
-    {
-        "name": "pe-ansys-electromagnetic-thermal",
-        "status": "planned",
-        "focus": "ANSYS Maxwell/Icepak/Mechanical workflows for electromagnetic loss, thermal, and coupled-field simulation.",
-    },
-    {
-        "name": "pe-comsol-electromagnetic-thermal",
-        "status": "planned",
-        "focus": "COMSOL workflows for electromagnetic fields, thermal fields, and multiphysics validation.",
-    },
-]
+PLANNED_SKILLS: list[dict[str, str]] = []
 
 
 def parse_frontmatter(path: Path) -> dict[str, str]:
@@ -83,22 +72,25 @@ def generate() -> str:
         ]
     )
 
-    planned_table = "\n".join(
-        [
-            "| Planned Skill | Status | Focus |",
-            "| --- | --- | --- |",
-            *[
-                f"| `{item['name']}` | {item['status']} | {item['focus']} |"
-                for item in PLANNED_SKILLS
-            ],
-        ]
-    )
+    if PLANNED_SKILLS:
+        planned_table = "\n".join(
+            [
+                "| Planned Skill | Status | Focus |",
+                "| --- | --- | --- |",
+                *[
+                    f"| `{item['name']}` | {item['status']} | {item['focus']} |"
+                    for item in PLANNED_SKILLS
+                ],
+            ]
+        )
+    else:
+        planned_table = "_No planned skills are listed right now. Add future items to `PLANNED_SKILLS` in `scripts/update_readme.py`._"
 
     return f"""# Spirit Connect Giants Skills PE
 
 Spirit Connect Giants Skills PE is a Codex Skills repository for power electronics engineering. Its purpose is to turn project experience, simulation workflows, debugging judgment, and engineering checklists into reusable AI workflows that can help more people design, simulate, and diagnose power electronics systems.
 
-The first stage focuses on simulation, debugging, and digital control implementation for control loops, PLECS, LTspice, MATLAB/Simulink, DSP/MCU targets, and FPGA targets. Future skills will cover ANSYS and COMSOL workflows for electromagnetic simulation, thermal simulation, and coupled multiphysics validation.
+The first stage focuses on simulation, debugging, digital control implementation, and electromagnetic/thermal multiphysics workflows for control loops, PLECS, LTspice, MATLAB/Simulink, DSP/MCU targets, FPGA targets, ANSYS, and COMSOL.
 
 Generated on: {today}
 

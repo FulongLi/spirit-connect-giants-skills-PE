@@ -2,14 +2,16 @@
 
 Spirit Connect Giants Skills PE is a Codex Skills repository for power electronics engineering. Its purpose is to turn project experience, simulation workflows, debugging judgment, and engineering checklists into reusable AI workflows that can help more people design, simulate, and diagnose power electronics systems.
 
-The first stage focuses on simulation, debugging, and digital control implementation for control loops, PLECS, LTspice, MATLAB/Simulink, DSP/MCU targets, and FPGA targets. Future skills will cover ANSYS and COMSOL workflows for electromagnetic simulation, thermal simulation, and coupled multiphysics validation.
+The first stage focuses on simulation, debugging, digital control implementation, and electromagnetic/thermal multiphysics workflows for control loops, PLECS, LTspice, MATLAB/Simulink, DSP/MCU targets, FPGA targets, ANSYS, and COMSOL.
 
-Generated on: 2026-05-18
+Generated on: 2026-05-19
 
 ## Active Skills
 
 | Skill | Status | Focus | References |
 | --- | --- | --- | ---: |
+| [`pe-ansys-electromagnetic-thermal`](./pe-ansys-electromagnetic-thermal/SKILL.md) | active | ANSYS Electromagnetic And Thermal Simulation For Power Electronics | 4 |
+| [`pe-comsol-electromagnetic-thermal`](./pe-comsol-electromagnetic-thermal/SKILL.md) | active | COMSOL Electromagnetic And Thermal Simulation For Power Electronics | 4 |
 | [`pe-control-loop-debug`](./pe-control-loop-debug/SKILL.md) | active | Power Electronics Control-Loop Simulation And Debugging | 4 |
 | [`pe-dsp-fpga-control-debug`](./pe-dsp-fpga-control-debug/SKILL.md) | active | DSP And FPGA Power Electronics Control Debugging | 4 |
 | [`pe-ltspice-power-electronics`](./pe-ltspice-power-electronics/SKILL.md) | active | LTspice Power Electronics Simulation | 3 |
@@ -18,10 +20,7 @@ Generated on: 2026-05-18
 
 ## Planned Skills
 
-| Planned Skill | Status | Focus |
-| --- | --- | --- |
-| `pe-ansys-electromagnetic-thermal` | planned | ANSYS Maxwell/Icepak/Mechanical workflows for electromagnetic loss, thermal, and coupled-field simulation. |
-| `pe-comsol-electromagnetic-thermal` | planned | COMSOL workflows for electromagnetic fields, thermal fields, and multiphysics validation. |
+_No planned skills are listed right now. Add future items to `PLANNED_SKILLS` in `scripts/update_readme.py`._
 
 ## How To Use These Skills
 
