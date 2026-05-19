@@ -1,0 +1,7 @@
+interface:
+  display_name: "PE SIMetrix/SIMPLIS Simulation"
+  short_description: "SIMetrix/SIMPLIS converter, double-pulse, device, and waveform simulation workflows"
+  default_prompt: "Use $pe-simetrix-simplis-power-electronics to plan or debug a SIMetrix/SIMPLIS power electronics simulation."
+
+policy:
+  allow_implicit_invocation: true

@@ -90,7 +90,7 @@ def generate() -> str:
 
 Spirit Connect Giants Skills PE is a Codex Skills repository for power electronics engineering. Its purpose is to turn project experience, simulation workflows, debugging judgment, and engineering checklists into reusable AI workflows that can help more people design, simulate, and diagnose power electronics systems.
 
-The first stage focuses on simulation, debugging, digital control implementation, and electromagnetic/thermal multiphysics workflows for control loops, PLECS, LTspice, MATLAB/Simulink, DSP/MCU targets, FPGA targets, ANSYS, and COMSOL.
+The first stage focuses on simulation, debugging, digital control implementation, and electromagnetic/thermal multiphysics workflows for control loops, PLECS, LTspice, SIMetrix/SIMPLIS, MATLAB/Simulink, DSP/MCU targets, FPGA targets, ANSYS, and COMSOL.
 
 Generated on: {today}
 

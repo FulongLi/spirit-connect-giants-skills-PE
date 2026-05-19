@@ -2,7 +2,7 @@
 
 Spirit Connect Giants Skills PE is a Codex Skills repository for power electronics engineering. Its purpose is to turn project experience, simulation workflows, debugging judgment, and engineering checklists into reusable AI workflows that can help more people design, simulate, and diagnose power electronics systems.
 
-The first stage focuses on simulation, debugging, digital control implementation, and electromagnetic/thermal multiphysics workflows for control loops, PLECS, LTspice, MATLAB/Simulink, DSP/MCU targets, FPGA targets, ANSYS, and COMSOL.
+The first stage focuses on simulation, debugging, digital control implementation, and electromagnetic/thermal multiphysics workflows for control loops, PLECS, LTspice, SIMetrix/SIMPLIS, MATLAB/Simulink, DSP/MCU targets, FPGA targets, ANSYS, and COMSOL.
 
 Generated on: 2026-05-19
 
@@ -16,6 +16,7 @@ Generated on: 2026-05-19
 | [`pe-dsp-fpga-control-debug`](./pe-dsp-fpga-control-debug/SKILL.md) | active | DSP And FPGA Power Electronics Control Debugging | 4 |
 | [`pe-ltspice-power-electronics`](./pe-ltspice-power-electronics/SKILL.md) | active | LTspice Power Electronics Simulation | 3 |
 | [`pe-plecs-power-electronics`](./pe-plecs-power-electronics/SKILL.md) | active | PLECS Power Electronics Simulation | 4 |
+| [`pe-simetrix-simplis-power-electronics`](./pe-simetrix-simplis-power-electronics/SKILL.md) | active | SIMetrix/SIMPLIS Power Electronics Simulation | 4 |
 | [`pe-simulink-power-electronics`](./pe-simulink-power-electronics/SKILL.md) | active | MATLAB/Simulink Power Electronics Simulation | 3 |
 
 ## Planned Skills
